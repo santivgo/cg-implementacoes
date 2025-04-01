@@ -13,11 +13,7 @@ import colorsys
 
 def get_palette(filename):
     palette = extract_colors(image=filename, palette_size=8)
-    for p in palette:       
-        print(p.hsv)
-    # rgb_palette = [palette.rgb for p in palette]
-
-    return palette
+    return [list(p.rgb) for p in palette]
 
 def shifting(palette):
     total_shifting = 0
@@ -38,9 +34,12 @@ def shifting(palette):
     for y in range(height):
         for x in range(width):
             r, g, b = rgb_array[y, x]  # Pegando os valores RGB
-            print(f"Pixel ({x},{y}): R={r}, G={g}, B={b}")
-            #print(hex(data[y, x]))
-            # if (hex(data[y, x]) in palette):
+            for p in palette:
+                print(r == p[0])
+                print(g == p[1])
+                print(b == p[2])
+
+
 def draw_event(widget, ctx, surface):
     ctx.set_source_surface(surface, 0, 0)
     ctx.paint()
@@ -55,6 +54,8 @@ shifting(palette)
 
 win = Gtk.Window()
 win.connect('destroy', Gtk.main_quit)
+
+
 
 drawingarea = Gtk.DrawingArea()
 win.add(drawingarea)
