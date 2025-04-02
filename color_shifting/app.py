@@ -31,7 +31,7 @@ def shifting(palette, surface):
     for i in range(len(palette)):
         for y in range(height):
             for x in range(width):
-                #getAllColors(hex(data[y,x]))
+                getAllColors(hex(data[y,x]))
                 data[y,x] = get_next_color(hex(data[y,x]), palette) # problema: paleta de cores não mt legal
         surface.write_to_png(f"output{i}.png")
 
@@ -47,12 +47,10 @@ def get_next_color(hexColor, palette):
     neo_hex = hexColor
     if(neo_hex in palette):
         i_palette = palette.index(neo_hex)
-        new_i_palette = (i_palette+1) % len(palette)-1
+        new_i_palette = (i_palette+1) % len(palette)
         neo_hex = palette[new_i_palette]
-        print("achoo...")
-
-        return int(neo_hex,16)
-    return int('0xffFF0000',16)
+    return int(neo_hex,16)
+    
     
     
 
@@ -92,4 +90,5 @@ drawingarea.set_size_request(width, height)
 
 win.show_all()
 # GLib.timeout_add(100, shifting)
+# 
 Gtk.main()
