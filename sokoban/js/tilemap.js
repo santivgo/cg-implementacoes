@@ -100,7 +100,7 @@ map = [
 
 
 
-    getPlayer(velocity){
+    getPlayer(){
         for(let row = 0; row < this.map.length; row++){
             for(let column = 0; column < this.map[row].length; column++){
                 const tile = this.map[row][column];
@@ -109,11 +109,26 @@ map = [
                     return new Player(
                         column*this.tileSize,
                         row*this.tileSize,
-                        this.tileSize, velocity, this
+                        this.tileSize, this
                     )
                 }
             }
         }
+    }
+
+    getStones(){
+        const stones = []
+        for(let row = 0; row < this.map.length; row++){
+            for(let column = 0; column < this.map[row].length; column++){
+                const tile = this.map[row][column];
+                if(tile === 3){
+                    this.map[row][column] = 0
+                    stones.push(new Stone(column*this.tileSize, row*this.tileSize, this.tileSize, this))
+                }
+            }
+        }
+
+        return enemies
     }
 
     draw(canvas, ctx) {
@@ -152,7 +167,11 @@ map = [
                     break
             }
             const tile = this.map[row][column];
-            if(tile === 1 || tile === 3){
+            if(tile === 1){
+                return true
+            }else if (tile === 3){
+
+                console.log(this.map[nextRow][nextColumn])
                 return true
             }
         }

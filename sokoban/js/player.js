@@ -1,16 +1,12 @@
 import MovingDirection from "./moviment.js";
 export default class Player{
 
-    constructor(x,y,size,vel, tileMap){
+    constructor(x,y,size, tileMap){
         this.x=x;
         this.y=y;
         this.size=size;
-        this.vel=vel;
         this.tileMap=tileMap;
 
-
-        this.currentMovimentDirection = null;
-        this.requestedMovimentDirection = null;
 
         document.addEventListener("keydown", this.#keydown.bind(this))
 
