@@ -6,16 +6,18 @@ export default class Player{
         this.size=size;
         this.vel=vel;
         this.tileMap=tileMap;
-        
+
+
         this.currentMovimentDirection = null;
         this.requestedMovimentDirection = null;
 
-        // document.addEventListener("keydown". this.#keydown)
+        document.addEventListener("keydown", this.#keydown.bind(this))
+        document.addEventListener("keyup", this.#keyup)
+
         this.#loadPlayerImage();    
     }
 
     draw(ctx){
-        this.#move()
         ctx.drawImage(this.playerImg,this.x, this.y, this.size, this.size)
     }
 
@@ -24,33 +26,43 @@ export default class Player{
         this.playerImg.src = "/img/player.png"
     }
 
-    #move(){
 
-    }
 
     #keydown = (event)=> {
-        if(event.keycode == 87){
-            if(this.currentMovimentDirection == MovingDirection.down)
-                this.currentMovimentDirection = MovingDirection.up;
-            this.requestedMovimentDirection = MovingDirection.up;
-        } // up
-        if(event.keycode == 83){
-            if(this.currentMovimentDirection == MovingDirection.up)
-                this.currentMovimentDirection = MovingDirection.down;
-            this.requestedMovimentDirection = MovingDirection.down;
-        } // down 
-        if(event.keycode == 65){
-            if(this.currentMovimentDirection == MovingDirection.right)
-            this.currentMovimentDirection = MovingDirection.left;
-        this.requestedMovimentDirection = MovingDirection.left;
-        } // left 
-        if(event.keycode == 68){
-            if(this.currentMovimentDirection == MovingDirection.left)
-            this.currentMovimentDirection = MovingDirection.right;
-        this.requestedMovimentDirection = MovingDirection.right;
-        } // right
+
+        switch(event.keyCode){
+            case 87:
+                this.y -= this.size
+                break;
+            case 83:
+                this.y += this.size
+                break;
+            case 65: 
+                this.x -= this.size
+                break;
+            case 68: 
+                this.x += this.size
+                break;
+    }
+    }
+    #keyup = (event)=> {
+
+        switch(event.keyCode){
+            case 87:
+                this.upPressed = false
+                break;
+            case 83:
+                this.downPressed = false
+                break;
+            case 65: 
+                this.leftPressed = false
+                break;
+            case 68: 
+                this.rightPressed = false
+                break;
     }
 
+    }
 
 
 }
