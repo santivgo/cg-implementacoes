@@ -1,4 +1,5 @@
 import Player from "./player.js";
+import MovingDirection from "./moviment.js";
 
 export default class TileMap {
 
@@ -22,23 +23,22 @@ export default class TileMap {
     // 4 - buracos
 
 
-    map = [
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 2,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,1],
-        [1, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+map = [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 3, 0, 1, 0, 4, 0, 1, 0, 3, 0, 1, 0, 4, 0, 1],
+    [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+    [1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
+    [1, 0, 0, 0, 1, 0, 0, 2, 0, 0, 1, 0, 0, 0, 1, 0, 1],
+    [1, 0, 4, 0, 1, 0, 3, 0, 1, 0, 4, 0, 1, 0, 3, 0, 1],
+    [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+];
 
-    ]
 
     #image(file) {
         const img = new Image();
@@ -122,4 +122,41 @@ export default class TileMap {
         this.#drawMap(ctx)
     }
 
+    collide(x, y, moviment){
+        if(Number.isInteger(x/this.tileSize) && Number.isInteger(y/this.tileSize)){
+            let column = 0
+            let row = 0
+            let nextColumn = 0
+            let nextRow = 0
+
+            switch(MovingDirection[moviment]){
+                case 'up':
+                    nextRow = y - this.tileSize;
+                    row = nextRow / this.tileSize;
+                    column = x / this.tileSize;
+                    break
+                case 'down':
+                    nextRow = y + this.tileSize;
+                    row = nextRow / this.tileSize;
+                    column = x / this.tileSize;
+                    break
+                case 'left':
+                    nextColumn = x - this.tileSize;
+                    column = nextColumn / this.tileSize;    
+                    row = y / this.tileSize;
+                    break
+                case 'right':
+                    nextColumn = x + this.tileSize;
+                    column = nextColumn / this.tileSize;    
+                    row = y / this.tileSize;
+                    break
+            }
+            const tile = this.map[row][column];
+            if(tile === 1 || tile === 3){
+                return true
+            }
+        }
+
+        return false
+    }
 }

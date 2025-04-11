@@ -1,5 +1,6 @@
 import MovingDirection from "./moviment.js";
 export default class Player{
+
     constructor(x,y,size,vel, tileMap){
         this.x=x;
         this.y=y;
@@ -12,7 +13,6 @@ export default class Player{
         this.requestedMovimentDirection = null;
 
         document.addEventListener("keydown", this.#keydown.bind(this))
-        document.addEventListener("keyup", this.#keyup)
 
         this.#loadPlayerImage();    
     }
@@ -29,7 +29,7 @@ export default class Player{
 
 
     #keydown = (event)=> {
-
+        if(!this.tileMap.collide(this.x, this.y, event.keyCode))
         switch(event.keyCode){
             case 87:
                 this.y -= this.size
@@ -45,24 +45,7 @@ export default class Player{
                 break;
     }
     }
-    #keyup = (event)=> {
 
-        switch(event.keyCode){
-            case 87:
-                this.upPressed = false
-                break;
-            case 83:
-                this.downPressed = false
-                break;
-            case 65: 
-                this.leftPressed = false
-                break;
-            case 68: 
-                this.rightPressed = false
-                break;
-    }
-
-    }
 
 
 }
