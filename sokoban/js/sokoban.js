@@ -15,7 +15,7 @@ setInterval(gameLoop, 1000 / 60);
 function gameLoop() {
     tileMap.draw(cnv, ctx);
     player.draw(ctx)
-    stone.array.forEach(stone => {
+    stone.forEach(stone => {
         stone.draw(ctx)
     });
 }

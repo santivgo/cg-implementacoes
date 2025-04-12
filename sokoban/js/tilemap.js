@@ -1,4 +1,5 @@
 import Player from "./player.js";
+import Stone from "./stone.js";
 import MovingDirection from "./moviment.js";
 
 export default class TileMap {
@@ -128,7 +129,7 @@ map = [
             }
         }
 
-        return enemies
+        return stones
     }
 
     draw(canvas, ctx) {
