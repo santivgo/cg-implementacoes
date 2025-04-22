@@ -19,7 +19,6 @@ export default class TileMap {
   // 2 - boneco
   // 3 - blocos arrastaveis
   // 4 - buracos
-
   map = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -214,9 +213,10 @@ export default class TileMap {
           (tileBehind === 0 || tileBehind === 4) && !stoneBehind;
 
         if (canMoveStone) {
-          if (tileBehind === 4)
+          if (tileBehind === 4) {
+            this.map[behindRow][behindColumn] = 0;
             this.stones = this.stones.filter((stone) => stone !== hasStone);
-          else {
+          } else {
             hasStone.x = behindColumn * this.tileSize;
             hasStone.y = behindRow * this.tileSize;
           }
