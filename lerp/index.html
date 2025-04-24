@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>GridLine</title>
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+<body>
+
+  <div class="header">
+    <h1 class="honk">InterpolationMania</h1>
+  </div>
+
+
+  <div class="lerp">
+    <div class="left-colors">
+      <input id="c1" onchange="loop()" type="color" value="#FF00DD" />
+      <input id="c3" onchange="loop()" type="color" value="#C8FF00" />
+    </div>
+
+    <canvas id="grid" width="300" height="300"></canvas>
+    <div class="right-colors">
+
+      <input id="c2" onchange="loop()" type="color" value="#00ff00" />
+      <input id="c4" onchange="loop()" type="color" value="#000000" />
+
+    </div>
+
+  </div>
+
+  <script src="lerp.js"></script>
+</body>
+
+</html>
